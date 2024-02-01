@@ -6,8 +6,7 @@ describe('Just visit e2e test', () => {
     cy.get('input[data-test-id="cartValue"]').type('20')
     cy.get('input[data-test-id="deliveryDistance"]').type('900')
     cy.get('input[data-test-id="numberOfItems"]').type('1')
-    cy.get('input[data-test-id="orderTimeDate"]').type('2023-02-01')
-    cy.get('input[data-test-id="orderTime"]').type('12:00')
+    cy.get('input[data-test-id="orderTime"]').type('2024-01-31T21:29 ')
 
     // submit the form
     cy.get('button').contains('Calculate delivery price').click()

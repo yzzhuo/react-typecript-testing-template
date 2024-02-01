@@ -1,8 +1,8 @@
-import { calculate_delivery_fee } from '../../../utils/deliveryFee';
+import { calculateDeliveryFee } from '../../../utils/deliveryFee';
 
 describe('calculate_delivery_fee', () => {
   it('should add a small order surcharge if cart value is less than 10€', () => {
-    const fee = calculate_delivery_fee({
+    const fee = calculateDeliveryFee({
       cartValue:8.9, 
       deliveryDistance:1000, 
       cartItemsAmount:1, 
@@ -13,7 +13,7 @@ describe('calculate_delivery_fee', () => {
   });
 
   it('should add 1€ for one additional 500 meters', () => {
-     const fee = calculate_delivery_fee({
+     const fee = calculateDeliveryFee({
       cartValue:10, 
       deliveryDistance:1499, 
       cartItemsAmount:1, 
@@ -24,7 +24,7 @@ describe('calculate_delivery_fee', () => {
    });
 
    it('should add 2€ for two additional 500 meters', () => {
-    const fee = calculate_delivery_fee({
+    const fee = calculateDeliveryFee({
      cartValue:10, 
      deliveryDistance:1501, 
      cartItemsAmount:1, 
@@ -35,7 +35,7 @@ describe('calculate_delivery_fee', () => {
   });
 
   it('should add 50 cents surcharge for each item above and including the fifth item', () => {
-    const fee = calculate_delivery_fee(
+    const fee = calculateDeliveryFee(
       {
         cartValue:10, 
         deliveryDistance:1000, 
@@ -46,7 +46,7 @@ describe('calculate_delivery_fee', () => {
   });
 
   it('should add an extra "bulk" fee for more than 12 items', () => {
-    const fee = calculate_delivery_fee({
+    const fee = calculateDeliveryFee({
       cartValue:10, 
       deliveryDistance:1000, 
       cartItemsAmount:13, 
@@ -56,7 +56,7 @@ describe('calculate_delivery_fee', () => {
   });
 
   it('should not exceed 15€', () => {
-    const fee = calculate_delivery_fee({
+    const fee = calculateDeliveryFee({
       cartValue:10, 
       deliveryDistance:5000, 
       cartItemsAmount:20, 
@@ -66,7 +66,7 @@ describe('calculate_delivery_fee', () => {
   });
 
   it('should be free when the cart value isBe or more than 200€', () => {
-    const fee = calculate_delivery_fee({
+    const fee = calculateDeliveryFee({
       cartValue:200, 
       deliveryDistance:1000, 
       cartItemsAmount:1, 
@@ -76,8 +76,8 @@ describe('calculate_delivery_fee', () => {
   });
 
   it('should multiply the fee by 1.2x during the Friday rush', () => {
-    const fridayRush = new Date(2024, 1, 2, 16); // month is 0-indexed
-    const fee = calculate_delivery_fee({
+    const fridayRush = new Date(2024, 1, 2, 16); // 2nd of February 2024(Friday), 16:00
+    const fee = calculateDeliveryFee({
       cartValue:10, 
       deliveryDistance:1000, 
       cartItemsAmount:1, 
@@ -85,4 +85,16 @@ describe('calculate_delivery_fee', () => {
     });
     expect(fee).toBe(2 * 1.2); // 2€ base fee * 1.2
   });
+
+  it('no need to multiply the fee by 1.2x if not the Friday rush', () => {
+    const fridayRush = new Date(2024, 1, 1, 16); // 2024-02-01 is not a Friday
+    const fee = calculateDeliveryFee({
+      cartValue:10, 
+      deliveryDistance:1000, 
+      cartItemsAmount:1, 
+      orderTime: fridayRush
+    });
+    expect(fee).toBe(2);
+  });
+
 });
