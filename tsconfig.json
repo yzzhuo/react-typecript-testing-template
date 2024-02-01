@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "esModuleInterop":true,
 
     /* Linting */
     "strict": true,
@@ -22,4 +23,5 @@
   },
   "include": ["src", "utils/deliveryFee.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
+  
 }

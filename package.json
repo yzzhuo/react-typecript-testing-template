@@ -8,9 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest",
-    "cy:run-e2e": "cypress run --e2e",
-    "cy:e2e": "start-server-and-test start http-get://localhost:3000 cy:open-e2e"
+    "test": "jest --collectCoverage",
+    "e2e": "cypress run --e2e"
   },
   "dependencies": {
     "jest-environment-jsdom": "^29.7.0",

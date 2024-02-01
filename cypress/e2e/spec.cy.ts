@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Just visit e2e test', () => {
   it('should get the 2 euro', () => {
     cy.visit('/')
@@ -6,7 +8,7 @@ describe('Just visit e2e test', () => {
     cy.get('input[data-test-id="cartValue"]').type('20')
     cy.get('input[data-test-id="deliveryDistance"]').type('900')
     cy.get('input[data-test-id="numberOfItems"]').type('1')
-    cy.get('input[data-test-id="orderTime"]').type('2024-01-31T21:29 ')
+    cy.get('input[data-test-id="orderTime"]').type('2024-01-31T21:29')
 
     // submit the form
     cy.get('button').contains('Calculate delivery price').click()
